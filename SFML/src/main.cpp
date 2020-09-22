@@ -5,6 +5,16 @@ using std::endl;
 
 int main()
 {
+    // TODO: put this in Lunar class method & member
+    sf::Font font;
+    font.loadFromFile("ARI.ttf");
+    sf::Text score("score: ", font);
+    score.setCharacterSize(30);
+    score.setFillColor(sf::Color::White);
+    score.setPosition(30, 30);
+    //score.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    
+    // TODO: put this in Lunar class method & member
     sf::Texture texture; // create Texture object
     texture.loadFromFile("lunar_lander3.png"); // load lander image
     sf::Sprite sprite; // create Sprite object
@@ -39,6 +49,9 @@ int main()
         window.draw(sprite);
         
         window.draw(terrain_points);
+        
+        window.draw(score);
+        
         // end the current frame
         window.display();
     }
