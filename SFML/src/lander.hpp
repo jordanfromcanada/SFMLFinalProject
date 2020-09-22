@@ -11,8 +11,9 @@
 class Lander {
 public:
     // TODO: set sprite texture, position, color in class constructor
-    // Lander::Lander();
+    Lander();
     
+    sf::Vector2f pos;
     float h_vel;
     float v_velocity;
     float altitude;
@@ -21,7 +22,7 @@ public:
 private:
 };
 
-sf::VertexArray get_terrain_points();
+//sf::VertexArray get_terrain_points();
 sf::Sprite make_sprite();
 
 #endif /* lander_hpp */
