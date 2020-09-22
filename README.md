@@ -1,7 +1,31 @@
 # SFMLFinalProject
 
 * What classes will you need to create?
+    * Game class - encompassing player's game session
+    * Spaceship, terrain, user input
 * What methods will they need?
+  * Game Class
+    * getTime()
+    * getFuel()
+    * getState() - started, running, paused
+  * Spaceship class:
+    * getPosition()
+    * drawPosition()
+    * getHorizontalVelocity()
+    * getVerticalVelocity()
+    * getAltitude()
+    * getFuel()
+  * Terrain
+    * drawTerrain()
+    * potentially - bonusZones()
 * What data will they need to store?
+  * Game Class
+     * time elapse, fuel remaining, state of game
+  * Spaceship class:
+     * current ship position, velocity, altitude
+  * Terrain
+     * terrain points to detect collisions
 * In what order will you implement them?
+  * model terrain, model ship, input/ship movement, collision detection, score
 * What tests will you write along the way to verify that you're making progress?
+  * collision detection tests, input verification tests
