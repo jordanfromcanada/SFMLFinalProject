@@ -54,8 +54,23 @@ void Game::Run(){
     }
 }
 
-void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
+void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     //TODO: add logic for what happens when a player presses a key.
+    
+    //Respond to key pressed events
+    // setPos(x, y) -> e.g. setPos(-1, 0) is left 1.
+    /*
+    if (key == sf::Keyboard::Left)
+        Lander.sprite.setPos(-1, 0);
+    if (key == sf::Keyboard::Right)
+        Lander.sprite.setPos(-1, 0);
+    if (key == sf::Keyboard::Up)
+        Lander.sprite.setPos(-1, 0);
+    if (key == sf::Keyboard::Down)
+        Lander.sprite.setPos(-1, 0);
+    if (key == sf::Keyboard::Enter)
+        Lander.sprite.setPos(0, 0);
+     */
     
 }
 
@@ -97,13 +112,45 @@ void Game::render(){
     
     window.draw(terrain_points);
     
-    drawText();
+    //drawText();
+    drawTxt();
     
     //TODO: add other text objects to be displayed
     
     window.display();
     
 }
+
+// create a vector of text to be displayed, then display it
+// to update e.g. score, use: txt.val
+void Game::drawTxt()
+{   // populate vector of text_pos structs for text to be displayed
+    // in the form (string, value, x pos, y pos)
+    // TODO: store this vector in a Game member so it can be dynamically changed
+    std::vector<text_pos> txt {
+        {"Score",            0, 30, 30},
+        {"Time",             0, 30, 90},
+        {"Fuel",             0, 30, 150},
+        {"Altitude",         0, 800, 30},
+        {"Horizontal Speed", 0, 800, 90},
+        {"Vertical Speed",   0, 800, 150},
+    };
+    
+    sf::Font font;
+    font.loadFromFile("ARI.ttf");
+    
+    // loop over vec and display the text
+    for (int i = 0; i < txt.size(); i++)
+    {
+        sf::Text text(txt[i].name + " : "
+                    + std::to_string(txt[i].val), font);
+        text.setPosition(txt[i].x, txt[i].y);
+        text.setFillColor(sf::Color::Blue);
+        text.setCharacterSize(30);
+        window.draw(text);
+    }
+}
+
 
 void Game::drawText(){
     sf::Font font;

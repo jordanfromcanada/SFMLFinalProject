@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "terrain.hpp"
 #include "lander.hpp"
 
@@ -33,6 +34,7 @@ public:
     float vVelocity;
     
     void drawText();
+    void drawTxt(); // Jordan's testing
     
     Lander lander;
     
@@ -43,6 +45,14 @@ private:
     void render();
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
     
+};
+
+struct text_pos
+{
+    std::string name;
+    float val;
+    int x;
+    int y;
 };
 
 
