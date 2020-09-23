@@ -16,6 +16,10 @@ window(sf::VideoMode(1200, 1200), "Lunar Lander")
     Terrain terrain; // new terrain object
     terrain_points = terrain.get_terrain_points();
     Lander lander; // new lander object
+    fuel_rem = lander.fuel;
+    altitude = lander.altitude;
+    hVelocity = lander.h_vel;
+    vVelocity = lander.v_vel;
 }
 
 void Game::Run(){
@@ -104,12 +108,12 @@ void Game::render(){
 void Game::drawText(){
     sf::Font font;
     font.loadFromFile("ARI.ttf");
-    sf::Text score("Score: ", font);
-    score.setCharacterSize(30);
-    score.setFillColor(sf::Color::White);
-    score.setPosition(30, 30);
-    window.draw(score);
-    sf::Text scoreLabel("0", font);
+    sf::Text scoreText("Score: ", font);
+    scoreText.setCharacterSize(30);
+    scoreText.setFillColor(sf::Color::White);
+    scoreText.setPosition(30, 30);
+    window.draw(scoreText);
+    sf::Text scoreLabel(std::to_string(score), font);
     scoreLabel.setCharacterSize(30);
     scoreLabel.setFillColor(sf::Color::White);
     scoreLabel.setPosition(125, 30);
@@ -119,39 +123,39 @@ void Game::drawText(){
     fuel.setFillColor(sf::Color::White);
     fuel.setPosition(30, 90);
     window.draw(fuel);
-    sf::Text fuelLabel("0", font);
+    sf::Text fuelLabel(std::to_string(fuel_rem), font);
     fuelLabel.setCharacterSize(30);
     fuelLabel.setFillColor(sf::Color::White);
     fuelLabel.setPosition(115, 90);
     window.draw(fuelLabel);
-    sf::Text altitude("Altitude: ", font);
-    altitude.setCharacterSize(30);
-    altitude.setFillColor(sf::Color::White);
-    altitude.setPosition(30, 150);
-    window.draw(altitude);
-    sf::Text altitudeLabel("0", font);
+    sf::Text altitudeText("Altitude: ", font);
+    altitudeText.setCharacterSize(30);
+    altitudeText.setFillColor(sf::Color::White);
+    altitudeText.setPosition(30, 150);
+    window.draw(altitudeText);
+    sf::Text altitudeLabel(std::to_string(altitude), font);
     altitudeLabel.setCharacterSize(30);
     altitudeLabel.setFillColor(sf::Color::White);
     altitudeLabel.setPosition(150, 150);
     window.draw(altitudeLabel);
     
-    sf::Text hvelocity("Horizontal Velocity: ", font);
-    hvelocity.setCharacterSize(30);
-    hvelocity.setFillColor(sf::Color::White);
-    hvelocity.setPosition(800, 30);
-    window.draw(hvelocity);
-    sf::Text hvelocityLabel("0", font);
+    sf::Text hVelocityText("Horizontal Velocity: ", font);
+    hVelocityText.setCharacterSize(30);
+    hVelocityText.setFillColor(sf::Color::White);
+    hVelocityText.setPosition(800, 30);
+    window.draw(hVelocityText);
+    sf::Text hvelocityLabel(std::to_string(hVelocity), font);
     hvelocityLabel.setCharacterSize(30);
     hvelocityLabel.setFillColor(sf::Color::White);
     hvelocityLabel.setPosition(1070, 30);
     window.draw(hvelocityLabel);
     
-    sf::Text vvelocity("Vertical Velocity: ", font);
-    vvelocity.setCharacterSize(30);
-    vvelocity.setFillColor(sf::Color::White);
-    vvelocity.setPosition(800, 90);
-    window.draw(vvelocity);
-    sf::Text vvelocityLabel("0", font);
+    sf::Text vVelocityText("Vertical Velocity: ", font);
+    vVelocityText.setCharacterSize(30);
+    vVelocityText.setFillColor(sf::Color::White);
+    vVelocityText.setPosition(800, 90);
+    window.draw(vVelocityText);
+    sf::Text vvelocityLabel(std::to_string(vVelocity), font);
     vvelocityLabel.setCharacterSize(30);
     vvelocityLabel.setFillColor(sf::Color::White);
     vvelocityLabel.setPosition(1030, 90);

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 #include "terrain.hpp"
 #include "lander.hpp"
 
@@ -25,6 +26,11 @@ public:
     sf::Sprite sprite;
     sf::VertexArray terrain_points;
     std::vector<sf::Text> myText;
+    int score;
+    int fuel_rem;
+    int altitude;
+    float hVelocity;
+    float vVelocity;
     
     void drawText();
     

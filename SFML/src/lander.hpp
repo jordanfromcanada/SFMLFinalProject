@@ -15,9 +15,9 @@ public:
     
     sf::Vector2f pos;
     float h_vel;
-    float v_velocity;
-    float altitude;
-    float fuel;
+    float v_vel;
+    int altitude;
+    int fuel;
     sf::Sprite sprite;
     sf::Texture texture;
     
