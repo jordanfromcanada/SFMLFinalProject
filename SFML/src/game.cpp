@@ -29,25 +29,15 @@ void Game::Run(){
     // gives us a delta since last update
     sf::Time timeDelta = sf::Time::Zero;
     
-    //TODO: move to own class
-    //sets the game variables including font and score
-
-    
-    //TODO:: move these to their own class
-    //assign texture to game variables
-//    texture.loadFromFile("lunar_lander3.png"); // load lander image
-//    sprite.setColor(sf::Color::Red); // set lander color
-//    sprite.setScale(0.1f, 0.1f); // 10% scale
-//    sprite.setTexture(texture); // sprite is now lander image
-//    sprite.setPosition(100, 100); // sets it towards top of screen
-    
     while (window.isOpen())
     {
-        timeDelta += clock.restart(); //updates the timeSinceLastUpdate (time delta)
-        while (timeDelta > TimePerFrame) // updates the screen if timeDetla exceeds timeperframe
+        //updates the timeSinceLastUpdate (time delta)
+        timeDelta += clock.restart();
+        // updates the screen if timeDetla exceeds timeperframe
+        while (timeDelta > TimePerFrame)
         {
             timeDelta -= TimePerFrame;
-            processEvents();
+            processEvents(); // detect pollEvent e.g. keypress
             update(TimePerFrame); // redraw moved stuff
         }
         render(); // draws the things
@@ -83,15 +73,15 @@ void Game::processEvents(){
        {
            switch (event.type)
            {
-               case sf::Event::KeyPressed:
+               case sf::Event::KeyPressed: {
                    handlePlayerInput(event.key.code, true);
-                   break;
-               case sf::Event::KeyReleased:
+                   break; }
+               case sf::Event::KeyReleased: {
                    handlePlayerInput(event.key.code, false);
-                   break;
-               case sf::Event::Closed:
+                   break; }
+               case sf::Event::Closed: {
                    window.close();
-                   break;
+                   break; }
                default:
                    break;
            }
@@ -102,12 +92,17 @@ void Game::update(sf::Time deltaTime){
     
     //TODO: redraw lander here as it moves
     
+    sf::Vector2f pos = lander.sprite.getPosition();
+    float offsetX = 1;
+    float offsetY = 1;
+    lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
+    
 }
 
 //renders everything
 void Game::render(){
     window.clear(sf::Color(0, 0, 0, 255));
-    
+
     window.draw(lander.sprite);
     
     window.draw(terrain_points);
