@@ -18,11 +18,13 @@ public:
     float v_velocity;
     float altitude;
     float fuel;
+    sf::Sprite sprite;
+    sf::Texture texture;
     
 private:
+
 };
 
-//sf::VertexArray get_terrain_points();
 sf::Sprite make_sprite();
 
 #endif /* lander_hpp */

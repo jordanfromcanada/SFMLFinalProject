@@ -24,8 +24,11 @@ public:
     sf::Texture texture;
     sf::Sprite sprite;
     sf::VertexArray terrain_points;
-    sf::Text score;
-    sf::Font font;
+    std::vector<sf::Text> myText;
+    
+    void drawText();
+    
+    Lander lander;
     
     
 private:
