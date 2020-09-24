@@ -3,11 +3,9 @@
 
 #include "lander.hpp"
 
-
-
 Lander::Lander(){
     sf::Vector2f defaultPos = {200,50};
-    texture.loadFromFile("lunar_lander3.png"); // load lander image
+    texture.loadFromFile("../src/lunar_lander3.png"); // load lander image
     sprite.setColor(sf::Color::Red); // set lander color
     sprite.setScale(0.1f, 0.1f); // 10% scale
     sprite.setTexture(texture); // sprite is now lander image
