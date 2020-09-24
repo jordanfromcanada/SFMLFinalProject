@@ -8,6 +8,9 @@
 #include "game.hpp"
 #include <chrono>
 #include <ctime>
+using std::cout;
+using std::endl;
+
 //sets frame limit to 60fps
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
@@ -29,6 +32,12 @@ void Game::Run(){
     
     sf::Clock clock;
     sf::Time elapsed1 = clock.getElapsedTime();
+    cout << "Vertex count: " << terrain_points.getVertexCount() << endl;
+     
+    for (int i = 0; i < terrain_points.getVertexCount(); i++)
+    {
+        cout << "x: " << terrain_points[i].position.x << " y: " << terrain_points[i].position.y << endl;
+    }
 
     while (window.isOpen()) {
         
@@ -43,21 +52,8 @@ void Game::Run(){
         drawTxt();
         window.display();
         processEvents();
-        //clock_t end = clock();
+        
         sf::Vector2f pos_end = lander.sprite.getPosition();
-        sf::FloatRect collisionBox =  lander.sprite.getGlobalBounds();
-        float bottom_left = lander.sprite.getGlobalBounds().left;
-        float landerX2 = lander.sprite.getGlobalBounds().height;
-        float terrain_y = getY(bottom_left);
-        
-        std::cout << "Y: " << terrain_points[terrain_y].position.y << " X: " << terrain_points[bottom_left].position.x << std::endl;
-        
-        //std::cout << "terrainY: " << terrain_y << std::endl;
-        //std::cout << "bottom left :" << bottom_left << std::endl;
-        //if(terrain_y <= bottom_left){
-        //}
-        //std::cout << checkCollision(collisionBox,terrain_points[bottom_left].position, terrain_points[landerX2].position) << std::endl;
-        
         //double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
         txt[4].val = (pos_end.x - pos_beg.x)/TimePerFrame.asSeconds();
         txt[5].val = (pos_end.y - pos_beg.y)/TimePerFrame.asSeconds();
@@ -80,6 +76,23 @@ void Game::processEvents(){
                   window.close();
                   break; }}
        }
+    
+    sf::FloatRect collisionBox =  lander.sprite.getGlobalBounds();
+    int lander_bottom_Y = collisionBox.top + collisionBox.height;
+    int lander_left_X = collisionBox.left;
+    int lander_right_X = collisionBox.left + collisionBox.width;
+    
+    if (terrain_points[lander_left_X].position.y <= lander_bottom_Y
+        || terrain_points[lander_right_X].position.y <= lander_bottom_Y)
+    {
+        cout << "Collision at x: " << terrain_points[lander_left_X].position.x
+        << " y: " << terrain_points[lander_left_X].position.y << endl;
+    }
+    
+//    cout << "terrain height at lander left: " << terrain_points[lander_left_X].position.y << endl;
+//    cout << "terrain height at lander right: " << terrain_points[lander_right_X].position.y << endl;
+    
+    
     clock_t begin = clock();
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
@@ -95,23 +108,23 @@ void Game::processEvents(){
     float offsetX = 0;
     float offsetY = 0;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        offsetX = -1.0f;
+        offsetX = -5.0f;
         offsetY = 0.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        offsetX = 1.0f;
+        offsetX = 5.0f;
         offsetY = 0.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
         offsetX = 0.0f;
-        offsetY = -1.0f;
+        offsetY = -5.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
         offsetX = 0.0f;
-        offsetY = 1.0f;
+        offsetY = 5.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
     }
     window.clear();

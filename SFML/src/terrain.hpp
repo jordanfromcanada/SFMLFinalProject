@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
+#include <stdlib.h>
 #include <iostream>
 #include "game.hpp"
 

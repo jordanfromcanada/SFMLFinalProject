@@ -9,7 +9,10 @@ int main()
 {
     Game game;
     game.Run();
-
+    
+    Terrain t;
+    sf::VertexArray p = t.get_terrain_points();
+    
     return 0;
 }
 
