@@ -27,5 +27,14 @@ sf::VertexArray Terrain::get_terrain_points(){
             y += ((rand() % 3) - 1) * 50; // also vary the multiplier of y to change terrain
         }
     }
+    terrainPoints = vertexPoints;
     return vertexPoints;
+}
+
+float Terrain::getY(float x){
+    for(int i = 0; i < get_terrain_points().getVertexCount(); i++){
+        if(terrainPoints[i].position.x == x){
+            return terrainPoints[i].position.y;
+        }
+    }
 }

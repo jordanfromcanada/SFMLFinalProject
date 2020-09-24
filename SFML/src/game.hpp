@@ -55,6 +55,12 @@ public:
         {"Horizontal Speed", 0, 800, 90},
         {"Vertical Speed",   0, 800, 150},
     };
+    
+    bool checkCollision(sf::FloatRect rect, sf::Vector2f a_p1, sf::Vector2f a_p2);
+    
+    bool pointCollision(sf::FloatRect rect, sf::Vector2f point);
+  
+    float getY(float x);
 
 private:
     void processEvents();

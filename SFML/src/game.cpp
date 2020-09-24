@@ -45,6 +45,19 @@ void Game::Run(){
         processEvents();
         //clock_t end = clock();
         sf::Vector2f pos_end = lander.sprite.getPosition();
+        sf::FloatRect collisionBox =  lander.sprite.getGlobalBounds();
+        float bottom_left = lander.sprite.getGlobalBounds().left;
+        float landerX2 = lander.sprite.getGlobalBounds().height;
+        float terrain_y = getY(bottom_left);
+        
+        std::cout << "Y: " << terrain_points[terrain_y].position.y << " X: " << terrain_points[bottom_left].position.x << std::endl;
+        
+        //std::cout << "terrainY: " << terrain_y << std::endl;
+        //std::cout << "bottom left :" << bottom_left << std::endl;
+        //if(terrain_y <= bottom_left){
+        //}
+        //std::cout << checkCollision(collisionBox,terrain_points[bottom_left].position, terrain_points[landerX2].position) << std::endl;
+        
         //double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
         txt[4].val = (pos_end.x - pos_beg.x)/TimePerFrame.asSeconds();
         txt[5].val = (pos_end.y - pos_beg.y)/TimePerFrame.asSeconds();
@@ -70,6 +83,7 @@ void Game::processEvents(){
     clock_t begin = clock();
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    
     
     sf::Vector2f pos1 = lander.sprite.getPosition();
     float offset_X = lander.h_vel * 0.0167;
@@ -122,5 +136,64 @@ void Game::drawTxt() {
     }
 }
 
+//bool Game::pointCollision(sf::FloatRect rect, sf::Vector2f point){
+//    if (rect.contains(point)) {
+//        return true;
+//    }
+//    return false;
+//}
 
+bool Game::checkCollision(sf::FloatRect rect, sf::Vector2f a_p1, sf::Vector2f a_p2){
+    // Find min and max X for the segment
+     auto minX = std::min(a_p1.x, a_p2.x);
+     auto maxX = std::max(a_p1.x, a_p2.x);
 
+     // Find the intersection of the segment's and rectangle's x-projections
+     if (maxX > rect.left + rect.width) {
+         maxX = rect.left + rect.width;
+     }
+
+     if (minX < rect.left) {
+         minX = rect.left;
+     }
+
+     // If Y-projections do not intersect then there's no intersection
+     if (minX > maxX) { return false; }
+
+     // Find corresponding min and max Y for min and max X we found before
+     auto minY = a_p1.y;
+     auto maxY = a_p2.y;
+
+     auto dx = a_p2.x - a_p1.x;
+     if (std::abs(dx) > 0.0000001f) {
+         auto k = (a_p2.y - a_p1.y) / dx;
+         auto b = a_p1.y - k * a_p1.x;
+         minY = k * minX + b;
+         maxY = k * maxX + b;
+     }
+
+     if (minY > maxY) {
+         std::swap(minY, maxY);
+     }
+
+     // Find the intersection of the segment's and rectangle's y-projections
+     if (maxY > rect.top + rect.height) {
+         maxY = rect.top + rect.height;
+     }
+
+     if (minY < rect.top) {
+         minY = rect.top;
+     }
+
+     // If Y-projections do not intersect then there's no intersection
+     if (minY > maxY) { return false; }
+     return true;
+ }
+
+float Game::getY(float x){
+    for(int i = 0; i < 1200; i++){
+        if(terrain_points[i].position.x == x){
+            return terrain_points[i].position.y;
+        }
+    }
+}

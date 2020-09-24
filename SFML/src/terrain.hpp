@@ -18,6 +18,10 @@ class Terrain{
 public:
     Terrain();
     sf::VertexArray get_terrain_points();
+    sf::Sprite sprite;
+    sf::VertexArray terrainPoints;
+    
+    float getY(float x);
     
 private:
     

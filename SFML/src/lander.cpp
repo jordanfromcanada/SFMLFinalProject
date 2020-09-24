@@ -11,10 +11,15 @@ Lander::Lander(){
     sprite.setTexture(texture); // sprite is now lander image
     sprite.setPosition(defaultPos); // sets it towards top of screen
     h_vel = 0.0;
-    v_vel = 30.0;
+    v_vel = 40.0;
     pos = defaultPos;
     fuel = 1000;
     altitude = 1000;
+
 }
 
+sf::Vector2f getPos(Lander lander){
+    sf::Vector2f pos = lander.sprite.getPosition();
+    return pos;
+};
 

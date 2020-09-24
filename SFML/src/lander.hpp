@@ -18,6 +18,8 @@ public:
     int fuel;
     sf::Sprite sprite;
     sf::Texture texture;
+    
+    sf::Vector2f getPos(Lander lander);
 };
 
 sf::Sprite make_sprite();
