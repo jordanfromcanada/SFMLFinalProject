@@ -13,8 +13,19 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream> // to display text_pos.val with 2 decimal places
+#include <iomanip> // std::setprecision
 #include "terrain.hpp"
 #include "lander.hpp"
+
+
+struct text_pos
+{
+    std::string name;
+    float val;
+    int x;
+    int y;
+};
 
 class Game {
 public:
@@ -32,28 +43,22 @@ public:
     int altitude;
     float hVelocity;
     float vVelocity;
-    
-    void drawText();
-    void drawTxt(); // Jordan's testing
-    
+    void drawTxt();
     Lander lander;
-    
-    
+    /* populate vector of text_pos structs for text to be displayed
+    in the form (string, value, x pos, y pos) */
+    std::vector<text_pos> txt {
+        {"Score",            0, 30, 30},
+        {"Time",             0, 30, 90},
+        {"Fuel",             0, 30, 150},
+        {"Altitude",         0, 800, 30},
+        {"Horizontal Speed", 0, 800, 90},
+        {"Vertical Speed",   0, 800, 150},
+    };
+
 private:
     void processEvents();
     void update(sf::Time deltaTime);
-    void render();
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
-    
 };
-
-struct text_pos
-{
-    std::string name;
-    float val;
-    int x;
-    int y;
-};
-
 
 #endif /* game_hpp */

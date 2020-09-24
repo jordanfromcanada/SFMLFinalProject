@@ -10,9 +10,7 @@
 
 class Lander {
 public:
-    // TODO: set sprite texture, position, color in class constructor
     Lander();
-    
     sf::Vector2f pos;
     float h_vel;
     float v_vel;
@@ -20,9 +18,6 @@ public:
     int fuel;
     sf::Sprite sprite;
     sf::Texture texture;
-    
-private:
-
 };
 
 sf::Sprite make_sprite();
