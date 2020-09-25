@@ -32,12 +32,12 @@ void Game::Run(){
     
     sf::Clock clock;
     sf::Time elapsed1 = clock.getElapsedTime();
-    cout << "Vertex count: " << terrain_points.getVertexCount() << endl;
-     
-    for (int i = 0; i < terrain_points.getVertexCount(); i++)
-    {
-        cout << "x: " << terrain_points[i].position.x << " y: " << terrain_points[i].position.y << endl;
-    }
+//    cout << "Vertex count: " << terrain_points.getVertexCount() << endl;
+//
+//    for (int i = 0; i < terrain_points.getVertexCount(); i++)
+//    {
+//        cout << "x: " << terrain_points[i].position.x << " y: " << terrain_points[i].position.y << endl;
+//    }
 
     while (window.isOpen()) {
         
@@ -54,10 +54,19 @@ void Game::Run(){
         processEvents();
         
         sf::Vector2f pos_end = lander.sprite.getPosition();
+        sf::FloatRect collisionBox1 =  lander.sprite.getGlobalBounds();
+        int lander_bottom_Y1 = collisionBox1.top + collisionBox1.height;
+
         //double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+//        if(lander.stop){
+//            elapsed1
+//        }
+        
+        txt[0].val = fuel_rem;
+        txt[2].val = fuel_rem;
         txt[4].val = (pos_end.x - pos_beg.x)/TimePerFrame.asSeconds();
         txt[5].val = (pos_end.y - pos_beg.y)/TimePerFrame.asSeconds();
-        txt[3].val = 1200-(lander.sprite.getPosition().y);
+        txt[3].val = getY(lander_bottom_Y1)-lander_bottom_Y1;
         
     }
 }
@@ -78,19 +87,32 @@ void Game::processEvents(){
        }
     
     sf::FloatRect collisionBox =  lander.sprite.getGlobalBounds();
-    int lander_bottom_Y = collisionBox.top + collisionBox.height;
-    int lander_left_X = collisionBox.left;
-    int lander_right_X = collisionBox.left + collisionBox.width;
+    float lander_bottom_Y = collisionBox.top + collisionBox.height;
+    float lander_left_X = collisionBox.left;
+    float lander_right_X = collisionBox.left + collisionBox.width;
     
-    if (terrain_points[lander_left_X].position.y <= lander_bottom_Y
-        || terrain_points[lander_right_X].position.y <= lander_bottom_Y)
+    
+    if(checkCollision(collisionBox, terrain_points[lander_left_X].position, terrain_points[lander_right_X].position))
     {
-        cout << "Collision at x: " << terrain_points[lander_left_X].position.x
-        << " y: " << terrain_points[lander_left_X].position.y << endl;
+        lander.onGround();
+        
     }
     
-//    cout << "terrain height at lander left: " << terrain_points[lander_left_X].position.y << endl;
-//    cout << "terrain height at lander right: " << terrain_points[lander_right_X].position.y << endl;
+//    if (terrain_points[lander_left_X].position.y <= lander_bottom_Y
+//        || terrain_points[lander_right_X].position.y <= lander_bottom_Y)
+//    {
+//
+//        lander.onGround();
+////        lander.sprite.setPosition(lander.sprite.getPosition());
+////        lander.h_vel=0;
+////        lander.v_vel=0;
+//////        cout << "Collision at x: " << terrain_points[lander_left_X].position.x
+//////        << " y: " << terrain_points[lander_left_X].position.y << endl;
+//   }
+    
+    
+    cout << "terrain height at lander left: " << terrain_points[lander_left_X].position.y << endl;
+    cout << "terrain height at lander right: " << terrain_points[lander_right_X].position.y << endl;
     
     
     clock_t begin = clock();
@@ -99,8 +121,8 @@ void Game::processEvents(){
     
     
     sf::Vector2f pos1 = lander.sprite.getPosition();
-    float offset_X = lander.h_vel * 0.0167;
-    float offset_Y = lander.v_vel * 0.0167;
+    float offset_X = lander.h_vel * TimePerFrame.asSeconds();
+    float offset_Y = lander.v_vel * TimePerFrame.asSeconds();
     lander.sprite.setPosition(pos1.x + offset_X, pos1.y + offset_Y);
     
     
@@ -108,25 +130,33 @@ void Game::processEvents(){
     float offsetX = 0;
     float offsetY = 0;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        if(fuel_rem > 0){
         offsetX = -5.0f;
         offsetY = 0.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-    }
+        fuel_rem -= 1;
+        }}
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+        if(fuel_rem > 0){
         offsetX = 5.0f;
         offsetY = 0.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-    }
+        fuel_rem -= 1;
+        }}
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+        if(fuel_rem > 0){
         offsetX = 0.0f;
         offsetY = -5.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-    }
+        fuel_rem -= 1;
+        }}
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+        if(fuel_rem > 0){
         offsetX = 0.0f;
         offsetY = 5.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-    }
+        fuel_rem -= 1;
+        }}
     window.clear();
     window.draw(lander.sprite);
 }
@@ -148,13 +178,6 @@ void Game::drawTxt() {
         window.draw(text);
     }
 }
-
-//bool Game::pointCollision(sf::FloatRect rect, sf::Vector2f point){
-//    if (rect.contains(point)) {
-//        return true;
-//    }
-//    return false;
-//}
 
 bool Game::checkCollision(sf::FloatRect rect, sf::Vector2f a_p1, sf::Vector2f a_p2){
     // Find min and max X for the segment
@@ -210,3 +233,5 @@ float Game::getY(float x){
         }
     }
 }
+
+
