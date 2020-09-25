@@ -15,7 +15,7 @@ Lander::Lander(){
     pos = defaultPos;
     fuel = 1000;
     altitude = 1000;
-
+    
 }
 
 sf::Vector2f getPos(Lander lander){
@@ -23,16 +23,9 @@ sf::Vector2f getPos(Lander lander){
     return pos;
 };
 
-bool Lander::onGround(){
-    if(stop){
+void Lander::onGround(){
     sprite.setPosition(sprite.getPosition());
     h_vel=0;
     v_vel=0;
-        return stop;
-    }else{
-        stop = false;
-        return stop;
-    }
-    
 }
 

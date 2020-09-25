@@ -30,7 +30,6 @@ window(sf::VideoMode(1200, 1200), "Lunar Lander", sf::Style::Close | sf::Style::
 
 void Game::Run(){
     
-    sf::Clock clock;
     sf::Time elapsed1 = clock.getElapsedTime();
 //    cout << "Vertex count: " << terrain_points.getVertexCount() << endl;
 //
@@ -62,7 +61,6 @@ void Game::Run(){
 //            elapsed1
 //        }
         
-        txt[0].val = fuel_rem;
         txt[2].val = fuel_rem;
         txt[4].val = (pos_end.x - pos_beg.x)/TimePerFrame.asSeconds();
         txt[5].val = (pos_end.y - pos_beg.y)/TimePerFrame.asSeconds();
@@ -74,12 +72,10 @@ void Game::Run(){
 //called every time the game is updated ~60 times a second
 void Game::processEvents(){
     sf::Event event;
-    
 
     
        while (window.pollEvent(event))
        {
-
            switch (event.type) {
                case sf::Event::Closed: {
                   window.close();
@@ -92,32 +88,26 @@ void Game::processEvents(){
     float lander_right_X = collisionBox.left + collisionBox.width;
     
     
-    if(checkCollision(collisionBox, terrain_points[lander_left_X].position, terrain_points[lander_right_X].position))
+//    if(checkCollision(collisionBox, terrain_points[lander_left_X].position, terrain_points[lander_right_X].position))
+//    {
+//        lander.stop = true;
+//        lander.onGround();
+//
+//
+//    }
+    
+    if (terrain_points[lander_left_X].position.y <= lander_bottom_Y
+        || terrain_points[lander_right_X].position.y <= lander_bottom_Y)
     {
+        int timesec = clock.getElapsedTime().asSeconds();
         lander.onGround();
         
-    }
-    
-//    if (terrain_points[lander_left_X].position.y <= lander_bottom_Y
-//        || terrain_points[lander_right_X].position.y <= lander_bottom_Y)
-//    {
-//
-//        lander.onGround();
-////        lander.sprite.setPosition(lander.sprite.getPosition());
-////        lander.h_vel=0;
-////        lander.v_vel=0;
-//////        cout << "Collision at x: " << terrain_points[lander_left_X].position.x
-//////        << " y: " << terrain_points[lander_left_X].position.y << endl;
-//   }
-    
-    
-    cout << "terrain height at lander left: " << terrain_points[lander_left_X].position.y << endl;
-    cout << "terrain height at lander right: " << terrain_points[lander_right_X].position.y << endl;
-    
-    
-    clock_t begin = clock();
-    clock_t end = clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+        
+        
+   }
+    txt[0].val += 1;
+//    cout << "terrain height at lander left: " << terrain_points[lander_left_X].position.y << endl;
+//    cout << "terrain height at lander right: " << terrain_points[lander_right_X].position.y << endl;
     
     
     sf::Vector2f pos1 = lander.sprite.getPosition();
@@ -134,28 +124,28 @@ void Game::processEvents(){
         offsetX = -5.0f;
         offsetY = 0.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-        fuel_rem -= 1;
+        fuel_rem -= 2;
         }}
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
         if(fuel_rem > 0){
         offsetX = 5.0f;
         offsetY = 0.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-        fuel_rem -= 1;
+        fuel_rem -= 2;
         }}
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
         if(fuel_rem > 0){
         offsetX = 0.0f;
         offsetY = -5.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-        fuel_rem -= 1;
+        fuel_rem -= 2;
         }}
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
         if(fuel_rem > 0){
         offsetX = 0.0f;
         offsetY = 5.0f;
         lander.sprite.setPosition(pos.x + offsetX, pos.y + offsetY);
-        fuel_rem -= 1;
+        fuel_rem -= 2;
         }}
     window.clear();
     window.draw(lander.sprite);

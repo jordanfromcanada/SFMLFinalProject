@@ -45,6 +45,8 @@ public:
     float vVelocity;
     void drawTxt();
     Lander lander;
+    sf::Time scoreTime;
+    sf::Clock clock;
     /* populate vector of text_pos structs for text to be displayed
     in the form (string, value, x pos, y pos) */
     std::vector<text_pos> txt {
