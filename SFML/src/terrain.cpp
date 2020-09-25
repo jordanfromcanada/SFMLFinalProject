@@ -1,23 +1,21 @@
 //
 //  terrain.cpp
-//  testSFML
-//
-//  Created by Nick Beckley on 9/22/20.
-//
 
 #include "terrain.hpp"
 
-Terrain::Terrain(){
-}
+// Default constructor
+Terrain::Terrain(){}
 
+// populate array of points for the terrain
 sf::VertexArray Terrain::get_terrain_points(){
-  srand(time(NULL));
+    
+    srand(time(NULL)); // random number generator seed
     sf::VertexArray vertexPoints(sf::LineStrip, 1200);
     int y = 600;
     int x = 0;
     int i = 0;
     int r;
-    while (i < 1200)
+    while (i < 1200) // array contains 1200 sequential x-coordinates
     {
       r = rand() % 10+1;
       if (r % 5 == 0)
@@ -39,16 +37,5 @@ sf::VertexArray Terrain::get_terrain_points(){
         i++;
       }
     }
-    terrainPoints = vertexPoints;
     return vertexPoints;
   }
-
-
-
-float Terrain::getY(float x){
-    for(int i = 0; i < get_terrain_points().getVertexCount(); i++){
-        if(terrainPoints[i].position.x == x){
-            return terrainPoints[i].position.y;
-        }
-    }
-}

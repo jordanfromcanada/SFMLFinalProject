@@ -25,7 +25,7 @@ cmake_minimum_required(VERSION 3.15)
 project(testSFML)
 
 #the project contains an executable named testSFML that uses the following cpp files
-add_executable(testSFML src/main.cpp src/lander.hpp src/lander.cpp src/terrain.cpp src/terrain.hpp src/game.cpp src/game.hpp)
+add_executable(testSFML src/main.cpp src/lander.hpp src/lander.cpp src/terrain.cpp src/terrain.hpp src/game.cpp src/game.hpp src/menu.cpp src/menu.h)
 
 #create a folder named "cmake" at the top of your project and put the
 #findSFML.cmake file in it.  This line tells Cmake to look there for
