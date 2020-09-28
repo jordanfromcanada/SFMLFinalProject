@@ -2,7 +2,7 @@
  https://github.com/SonarSystems/SFML-2.1-Tutorial-51---Menu-Class/tree/master/TutorialSFML/TutorialSFML
  */
 
-#include "menu.h"
+#include "Menu.h"
 #include <SFML/Audio.hpp>
 
 // Menu constructor - creates inital selection screen buttons 'Play', 'Options', and 'Exit'

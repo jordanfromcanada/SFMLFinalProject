@@ -2,7 +2,7 @@
 //  game.cpp
 
 #include "game.hpp"
-#include "menu.h"
+#include "Menu.h"
 
 using std::cout;
 using std::endl;
