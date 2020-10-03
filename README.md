@@ -1,5 +1,7 @@
 # SFMLFinalProject
 
+A recreation of the Lunar Lander Atari game using the C++ SFML library.
+
 <img width="712" alt="Screen Shot 2020-10-03 at 2 53 40 PM" src="https://user-images.githubusercontent.com/65370643/95001621-d7d9d300-0588-11eb-99e1-3c2bfdbe233d.png">
 
 <img width="712" alt="Screen Shot 2020-10-03 at 2 55 45 PM" src="https://user-images.githubusercontent.com/65370643/95001634-e7591c00-0588-11eb-8180-fe93461f0f7f.png">
